@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart Drawer Prototype</title>
+<style>
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #e5e7eb; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+  .phone { width: 375px; height: 812px; background: #f3f4f6; border-radius: 40px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); position: relative; overflow: hidden; border: 8px solid #1f2937; }
+  .header { padding: 20px; background: white; font-weight: bold; font-size: 20px; border-bottom: 1px solid #ddd; }
+  .products { padding: 20px; display: grid; gap: 15px; grid-template-columns: 1fr 1fr; }
+  .product-card { background: white; height: 150px; border-radius: 12px; padding: 15px; position: relative; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .add-btn { position: absolute; bottom: 10px; right: 10px; background: #166534; color: white; width: 30px; height: 30px; border-radius: 15px; border: none; font-size: 20px; cursor: pointer; }
+  
+  /* Bottom Drawer */
+  .drawer-container { position: absolute; bottom: 0; left: 0; width: 100%; height: 60%; background: white; border-radius: 24px 24px 0 0; box-shadow: 0 -5px 20px rgba(0,0,0,0.15); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); transform: translateY(calc(100% - 60px)); display: flex; flex-direction: column; }
+  .drawer-container.open { transform: translateY(0); }
+  
+  .drawer-header { height: 60px; background: #166534; border-radius: 24px 24px 0 0; color: white; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; cursor: pointer; }
+  .drawer-header h3 { margin: 0; font-size: 16px; }
+  
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+  .chevron { font-size: 20px; font-weight: bold; animation: bounce 1.5s infinite; transition: transform 0.3s; }
+  .drawer-container.open .chevron { transform: rotate(180deg); animation: none; }
+  
+  .drawer-content { padding: 20px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+  .cart-item { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid #eee; }
+  .checkout-section { padding: 20px; border-top: 1px solid #eee; display: flex; gap: 10px; }
+  .btn { flex: 1; padding: 15px; border-radius: 8px; border: none; color: white; font-weight: bold; cursor: pointer; }
+  .btn-tunai { background: #166534; }
+  .btn-qris { background: #f97316; }
+</style>
+</head>
+<body>
+  <div class="phone">
+    <div class="header">Queensha POS</div>
+    <div class="products">
+      <div class="product-card">Gula 1 Kg<button class="add-btn" onclick="add()">+</button></div>
+      <div class="product-card">Kopi Sachet<button class="add-btn" onclick="add()">+</button></div>
+      <div class="product-card">Air Mineral<button class="add-btn" onclick="add()">+</button></div>
+    </div>
+    
+    <!-- Drawer -->
+    <div class="drawer-container" id="drawer">
+      <div class="drawer-header" onclick="toggleDrawer()">
+        <h3>Keranjang Belanja (<span id="count">0</span>)</h3>
+        <div class="chevron">▲</div>
+      </div>
+      <div class="drawer-content" id="cart-content">
+        <!-- Items go here -->
+      </div>
+      <div class="checkout-section">
+        <button class="btn btn-tunai">TUNAI</button>
+        <button class="btn btn-qris">QRIS</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  let count = 0;
+  const drawer = document.getElementById('drawer');
+  const countEl = document.getElementById('count');
+  const cartContent = document.getElementById('cart-content');
+
+  function add() {
+    count++;
+    countEl.innerText = count;
+    cartContent.innerHTML += `<div class="cart-item"><span>Item ${count}</span><span>Rp 5.000</span></div>`;
+    // Flash green
+    document.querySelector('.drawer-header').style.backgroundColor = '#22c55e';
+    setTimeout(() => { document.querySelector('.drawer-header').style.backgroundColor = '#166534'; }, 300);
+  }
+
+  function toggleDrawer() {
+    if(count === 0) return alert('Keranjang masih kosong!');
+    drawer.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
