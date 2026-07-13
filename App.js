@@ -1,3 +1,4 @@
+// This App was build by Chris Tambayong - Fumakill4
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, Alert, StatusBar, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';

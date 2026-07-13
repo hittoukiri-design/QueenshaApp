@@ -1,3 +1,4 @@
+// This App was build by Chris Tambayong - Fumakill4
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, Platform, StatusBar, ActivityIndicator, Dimensions, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';

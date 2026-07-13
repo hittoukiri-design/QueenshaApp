@@ -1,3 +1,4 @@
+// This App was build by Chris Tambayong - Fumakill4
 import { registerRootComponent } from 'expo';
 
 import App from './App';
